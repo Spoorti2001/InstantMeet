@@ -22,6 +22,11 @@ public class UserController {
 
 	 private final UserService service;
 
+	  @GetMapping("/")
+	    public String hello() {
+	        return "Hello, World!";
+	    }
+	 
 	    // Manually defined constructor for dependency injection
 	    public UserController(UserService service) {
 	        this.service = service;
