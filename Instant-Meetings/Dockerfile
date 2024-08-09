@@ -7,6 +7,6 @@ RUN mvn clean package -DskipTests
 # Production stage
 FROM openjdk:17-slim
 WORKDIR /app
-COPY . .
+COPY --from=build /app/target/Instant-Meetings-0.0.1-SNAPSHOT.jar Instant-Meetings.jar
 EXPOSE 8081
 CMD ["java", "-jar", "Instant-Meetings.jar", "--server.port=${PORT}"]
