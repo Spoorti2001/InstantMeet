@@ -1,11 +1,12 @@
 # Build stage
 FROM maven:3.8.3-openjdk-17 AS build
-COPY . /app
 WORKDIR /app
+COPY . .
 RUN mvn clean package -DskipTests
 
-# Run stage
+# Production stage
 FROM openjdk:17-slim
-COPY --from=build /app/target/Instant-Meetings-0.0.1-SNAPSHOT.jar /app/Instant-Meetings.jar
+WORKDIR /app
+COPY . .
 EXPOSE 8081
-CMD ["java", "-jar", "/app/Instant-Meetings.jar", "--server.port=8081"]
+CMD ["java", "-jar", "Instant-Meetings.jar", "--server.port=${PORT}"]
